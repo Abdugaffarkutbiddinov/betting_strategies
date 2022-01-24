@@ -7,7 +7,7 @@ import 'package:betting_starategies/features/betting_strategies/data/models/bett
 
 // TODO: Should be Future or not
 abstract class BettingStrategyMockRemoteDataSource {
-  Future<List<BettingStrategyCardModel>> getBettingStrategyCardRecipe();
+  Future<List<BettingStrategyCardModel>> getBettingStrategyCardList();
   Future<BettingStrategyCardModel> getBettingStrategyCardDetails(int id);
 }
 
@@ -25,7 +25,7 @@ class BettingStrategyMockRemoteDataSourceImpl implements BettingStrategyMockRemo
   }
 
   @override
-  Future<List<BettingStrategyCardModel>> getBettingStrategyCardRecipe() {
+  Future<List<BettingStrategyCardModel>> getBettingStrategyCardList() {
     final body = json.decode(fixture('data_reader.json'));
     List<BettingStrategyCardModel> bettingStrategies = bettingStrategyCardListModelFromJson(body);
     return Future.value(bettingStrategies) ;
