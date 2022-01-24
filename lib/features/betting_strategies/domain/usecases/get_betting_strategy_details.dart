@@ -11,16 +11,16 @@ class GetAppDetails extends UseCase<BettingStrategyCard,Params> {
   @override
   Future<Either<Failure, BettingStrategyCard>> call(Params params) {
     // TODO: implement call
-    throw repository.getBettingCardDetails(params.name);
+    throw repository.getBettingCardDetails(params.id);
   }
 
 }
 
 class Params extends Equatable {
-  final String name;
-  Params({required this.name});
+  final int id;
+  Params({required this.id});
 
   @override
 // TODO: implement props
-  List<Object?> get props => [name];
+  List<Object?> get props => [id];
 }

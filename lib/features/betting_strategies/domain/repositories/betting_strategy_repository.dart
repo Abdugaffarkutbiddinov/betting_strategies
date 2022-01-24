@@ -4,9 +4,9 @@ import 'package:dartz/dartz.dart';
 
 abstract class BettingStrategyRepository {
   Future<Either<Failure, List<BettingStrategyCard>>> getBettingStrategyCardList();
-  Future<Either<Failure,BettingStrategyCard>> getBettingCardDetails(String name);
-  void addToFavourites(String name);
-  void removeFromFavourites(String name);
+  Future<Either<Failure,BettingStrategyCard>> getBettingCardDetails(int id);
+  void addToFavourites(int id);
+  void removeFromFavourites(int id);
 
 
 }
