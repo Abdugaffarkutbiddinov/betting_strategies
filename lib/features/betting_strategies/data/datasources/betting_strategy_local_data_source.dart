@@ -24,6 +24,7 @@ class BettingStrategyLocalDataSourceImpl
   @override
   Future<void> addToFavourites(BettingStrategyCardModel favourite) {
     favourites.add(favourite);
+    sharedPreferences.remove(FAVOURITE_LIST);
     return sharedPreferences.setString(
         FAVOURITE_LIST, json.encode(bettingStrategyCardListToJson(favourites)));
   }

@@ -6,7 +6,7 @@ abstract class BettingStrategyRepository {
   Future<Either<Failure, List<BettingStrategyCard>>>
       getBettingStrategyCardList();
 
-  Future<Either<Failure, BettingStrategyCard>> getBettingCardDetails(int id);
+  // Future<Either<Failure, BettingStrategyCard>> getBettingCardDetails(int id);
 
   Future<Either<Failure, void>> addToFavourites(int id);
 

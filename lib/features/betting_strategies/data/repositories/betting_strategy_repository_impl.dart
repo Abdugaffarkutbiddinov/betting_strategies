@@ -12,11 +12,11 @@ class BettingStrategyRepositoryImpl implements BettingStrategyRepository {
   BettingStrategyRepositoryImpl(
       {required this.mockRemoteDataSource, required this.localDataSource});
 
-  @override
-  Future<Either<Failure, BettingStrategyCard>> getBettingCardDetails(int id) async{
-    final mockRemoteBettingStrategyDetails = await mockRemoteDataSource.getBettingStrategyCardDetails(id);
-    return Right(mockRemoteBettingStrategyDetails);
-  }
+  // @override
+  // Future<Either<Failure, BettingStrategyCard>> getBettingCardDetails(int id) async{
+  //   final mockRemoteBettingStrategyDetails = await mockRemoteDataSource.getBettingStrategyCardDetails(id);
+  //   return Right(mockRemoteBettingStrategyDetails);
+  // }
 
   @override
   Future<Either<Failure, List<BettingStrategyCard>>> getBettingStrategyCardList() async{
@@ -26,15 +26,15 @@ class BettingStrategyRepositoryImpl implements BettingStrategyRepository {
 
   @override
   Future<Either<Failure, void>> addToFavourites(int id) async{
-    final bettingStrategyCard = await mockRemoteDataSource.getBettingStrategyCardDetails(id);
-    return Right(localDataSource.addToFavourites(bettingStrategyCard));
+    final bettingStrategyCardList = await mockRemoteDataSource.getBettingStrategyCardList();
+    return Right(localDataSource.addToFavourites(bettingStrategyCardList.elementAt(id - 1)));
 
   }
 
   @override
   Future<Either<Failure, void>> removeFromFavourites(int id) async{
-    final bettingStrategyCard = await mockRemoteDataSource.getBettingStrategyCardDetails(id);
-    return Right(localDataSource.deleteFavourites(bettingStrategyCard));
+    final bettingStrategyCardList = await mockRemoteDataSource.getBettingStrategyCardList();
+    return Right(localDataSource.deleteFavourites(bettingStrategyCardList.elementAt(id - 1)));
 
   }
 
