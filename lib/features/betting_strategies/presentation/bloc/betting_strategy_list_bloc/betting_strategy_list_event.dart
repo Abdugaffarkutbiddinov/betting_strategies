@@ -12,16 +12,16 @@ class GetBettingStrategyAsList extends BettingStrategyListEvent {
 
 }
 
-class GetBettingStrategyAsDetails extends BettingStrategyListEvent {
-  final String idString;
-
-  GetBettingStrategyAsDetails(this.idString);
-
-  @override
-  // TODO: implement props
-  List<Object?> get props => [idString];
-
-}
+// class GetBettingStrategyAsDetails extends BettingStrategyListEvent {
+//   final String idString;
+//
+//   GetBettingStrategyAsDetails(this.idString);
+//
+//   @override
+//   // TODO: implement props
+//   List<Object?> get props => [idString];
+//
+// }
 
 class AddBettingStrategyAsFavourite extends BettingStrategyListEvent {
   final String idString;
