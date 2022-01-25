@@ -1,7 +1,7 @@
 
 import 'dart:convert';
 
-import 'package:betting_starategies/core/constants/data/data_reader.dart';
+import 'package:betting_starategies/constants/data_reader.dart';
 import 'package:betting_starategies/core/error/exception.dart';
 import 'package:betting_starategies/features/betting_strategies/data/models/betting_strategy_card_model.dart';
 
@@ -13,8 +13,8 @@ abstract class BettingStrategyMockRemoteDataSource {
 
 class BettingStrategyMockRemoteDataSourceImpl implements BettingStrategyMockRemoteDataSource {
   @override
-  Future<BettingStrategyCardModel> getBettingStrategyCardDetails(int id) {
-    final body = json.decode(fixture('data_reader.json'));
+  Future<BettingStrategyCardModel> getBettingStrategyCardDetails(int id){
+    final body = json.decode(fixture('betting_strategy.json'));
     List<BettingStrategyCardModel> bettingStrategies = bettingStrategyCardListModelFromJson(body);
     for(final strategy in bettingStrategies) {
       if(id == strategy.id) {
@@ -26,7 +26,7 @@ class BettingStrategyMockRemoteDataSourceImpl implements BettingStrategyMockRemo
 
   @override
   Future<List<BettingStrategyCardModel>> getBettingStrategyCardList() {
-    final body = json.decode(fixture('data_reader.json'));
+    final body = json.decode(fixture('betting_strategy.json'));
     List<BettingStrategyCardModel> bettingStrategies = bettingStrategyCardListModelFromJson(body);
     return Future.value(bettingStrategies) ;
   }

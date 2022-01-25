@@ -38,5 +38,11 @@ class BettingStrategyRepositoryImpl implements BettingStrategyRepository {
 
   }
 
+  @override
+  Future<Either<Failure, List<BettingStrategyCard>>> getBettingStrategyCardListFavourites() async{
+    final localFavouritesList = await localDataSource.getFavourites();
+    return Right(localFavouritesList);
+  }
+
 
 }

@@ -1,38 +1,28 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'features/betting_strategies/presentation/bloc/betting_strategy_list_bloc/betting_strategy_list_bloc.dart';
+import 'features/betting_strategies/presentation/pages/betiing_strategy_list_page.dart';
+import 'injection_container.dart' as di;
 
-void main() {
-  runApp(const MyApp());
-}
+import 'injection_container.dart';
+
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await di.init();
+  runApp(MyApp(key: null,));}
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({required Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
+      home: BlocProvider(
+        create: (_) => sl<BettingStrategyListBloc>(),
+        child: BettingStrategyListPage(),
       ),
-      home: const MyHomePage(),
     );
   }
 }
-
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Container();
-  }
-}
-
-
 

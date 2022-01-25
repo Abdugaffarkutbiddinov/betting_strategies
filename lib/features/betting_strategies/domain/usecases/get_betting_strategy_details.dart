@@ -5,9 +5,9 @@ import 'package:betting_starategies/features/betting_strategies/domain/repositor
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-class GetAppDetails extends UseCase<BettingStrategyCard,Params> {
+class GetBettingStrategyDetails extends UseCase<BettingStrategyCard,Params> {
   BettingStrategyRepository repository;
-  GetAppDetails(this.repository);
+  GetBettingStrategyDetails(this.repository);
   @override
   Future<Either<Failure, BettingStrategyCard>> call(Params params) {
     // TODO: implement call
