@@ -7,15 +7,15 @@ import 'package:provider/src/provider.dart';
 
 import '../../../../constants.dart';
 
-class DetailsPage extends StatefulWidget {
-  const DetailsPage({Key? key, required this.strategy}) : super(key: key);
+class DetailsPageFavourite extends StatefulWidget {
+  const DetailsPageFavourite({Key? key, required this.strategy}) : super(key: key);
   final BettingStrategyCard strategy;
 
   @override
-  _DetailsPageState createState() => _DetailsPageState();
+  _DetailsPageFavouriteState createState() => _DetailsPageFavouriteState();
 }
 
-class _DetailsPageState extends State<DetailsPage> {
+class _DetailsPageFavouriteState extends State<DetailsPageFavourite> {
   String _cartTag = "";
 
   @override
@@ -36,7 +36,7 @@ class _DetailsPageState extends State<DetailsPage> {
                 });
                 Navigator.pop(context);
               },
-              text: 'Add to Favourites', backgroundColor: Colors.blueGrey,
+              text: 'Remove from Favourites', backgroundColor: Colors.red,
             ),
           ),
         ),

@@ -19,7 +19,8 @@ class BettingStrategyListPage extends StatefulWidget {
 }
 
 class _BettingStrategyListPageState extends State<BettingStrategyListPage> {
-  bool favourite  = false;
+  bool favourite = false;
+
   @override
   void initState() {
     // TODO: implement initState
@@ -40,10 +41,18 @@ class _BettingStrategyListPageState extends State<BettingStrategyListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => FavouritesPage()));
-        }, icon: Icon(Icons.favorite,color: Colors.red,),),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => FavouritesPage()));
+            },
+            icon: Icon(
+              Icons.favorite,
+              color: Colors.red,
+            ),
+          ),
+        ],
         backgroundColor: Color(0xFFF8F8F8),
       ),
       body: Container(
@@ -135,11 +144,13 @@ class _BettingStrategyListPageState extends State<BettingStrategyListPage> {
                           context.read<BettingStrategyListBloc>().add(
                               AddBettingStrategyAsFavourite(
                                   albums[index].id.toString()));
-                         setState(() {
-                           favourite = true;
-                         });
+                          setState(() {
+                            favourite = true;
+                          });
                         },
-                        icon: Icon((favourite == true) ? Icons.favorite : Icons.favorite_border),
+                        icon: Icon((favourite == true)
+                            ? Icons.favorite
+                            : Icons.favorite_border),
                         color: Colors.red,
                       ),
                     )
