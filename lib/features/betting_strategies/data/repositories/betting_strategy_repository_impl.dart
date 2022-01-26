@@ -20,11 +20,11 @@ class BettingStrategyRepositoryImpl implements BettingStrategyRepository {
   }
 
   @override
-  Future <void> addToFavourites(int id) async {
+  Future<Either<Failure, void>> addToFavourites(int id) async {
       final bettingStrategyCardList = await mockRemoteDataSource
           .getBettingStrategyCardList();
-      localDataSource.addToFavourites(
-          bettingStrategyCardList.elementAt(id - 1));
+      return Right(localDataSource.addToFavourites(
+          bettingStrategyCardList.elementAt(id - 1)));
   }
 
   @override

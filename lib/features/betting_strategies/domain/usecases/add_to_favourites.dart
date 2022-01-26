@@ -7,11 +7,11 @@ import 'package:betting_starategies/features/betting_strategies/domain/repositor
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 
-class AddToFavourites  {
+class AddToFavourites extends UseCase<void,Params>  {
   BettingStrategyRepository repository;
   AddToFavourites(this.repository);
   @override
-  Future<void> call(Params params) async{
+  Future<Either<Failure, void>> call(Params params) async{
     return await repository.addToFavourites(params.id);
   }
 

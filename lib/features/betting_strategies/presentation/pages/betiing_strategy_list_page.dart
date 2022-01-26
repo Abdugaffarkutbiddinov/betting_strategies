@@ -146,17 +146,14 @@ class _BettingStrategyListPageState extends State<BettingStrategyListPage> {
                     Flexible(
                       child: IconButton(
                         onPressed: () {
-                          context.read<BettingStrategyListBloc>().add(
-                              AddBettingStrategyAsFavourite(
-                                  albums[index].id.toString()));
+                          context
+                              .read<BettingStrategyListBloc>()
+                              .add(AddBettingStrategyAsFavourite(albums[index].id.toString()));
                           setState(() {
-                            favourite = true;
+                            // albums.removeAt(albums[index].id);
                           });
                         },
-                        icon: Icon((favourite == true)
-                            ? Icons.favorite
-                            : Icons.favorite_border),
-                        color: Colors.red,
+                        icon: Icon(Icons.favorite, color: Colors.red,),
                       ),
                     )
                   ],
