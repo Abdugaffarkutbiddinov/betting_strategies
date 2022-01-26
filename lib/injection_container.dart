@@ -1,3 +1,4 @@
+import 'package:betting_starategies/core/util/input_converter.dart';
 import 'package:betting_starategies/features/betting_strategies/data/datasources/betting_strategy_local_data_source.dart';
 import 'package:betting_starategies/features/betting_strategies/data/datasources/betting_strategy_mock_remote_data_source.dart';
 import 'package:betting_starategies/features/betting_strategies/data/repositories/betting_strategy_repository_impl.dart';
@@ -20,6 +21,7 @@ Future<void> init() async {
           deleteFromFavourites: sl(),
           getBettingStrategyFavourites: sl(),
           getBettingStrategyCardList: sl(), inputConverter: sl()));
+  sl.registerLazySingleton(() => InputConverter());
 // Use Case
       sl.registerLazySingleton(()
   =>

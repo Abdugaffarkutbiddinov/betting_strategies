@@ -8,18 +8,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'betting_strategy_page_details.dart';
-import 'favourites_page.dart';
 
-class BettingStrategyListPage extends StatefulWidget {
-  const BettingStrategyListPage({Key? key}) : super(key: key);
+class FavouritesPage extends StatefulWidget {
+  const FavouritesPage({Key? key}) : super(key: key);
 
   @override
-  State<BettingStrategyListPage> createState() =>
-      _BettingStrategyListPageState();
+  State<FavouritesPage> createState() =>
+      _FavouritesPageState();
 }
 
-class _BettingStrategyListPageState extends State<BettingStrategyListPage> {
-  bool favourite  = false;
+class _FavouritesPageState extends State<FavouritesPage> {
   @override
   void initState() {
     // TODO: implement initState
@@ -27,25 +25,13 @@ class _BettingStrategyListPageState extends State<BettingStrategyListPage> {
   }
 
   _loadAlbums() async {
-    context.read<BettingStrategyListBloc>().add(GetBettingStrategyAsList());
+    context.read<BettingStrategyListBloc>().add(GetBettingStrategyForFavourites());
   }
 
-  _addFavourite(String idString) async {
-    context
-        .read<BettingStrategyListBloc>()
-        .add(AddBettingStrategyAsFavourite(idString));
-  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
-              builder: (context) => FavouritesPage()));
-        }, icon: Icon(Icons.favorite,color: Colors.red,),),
-        backgroundColor: Color(0xFFF8F8F8),
-      ),
       body: Container(
         child: _body(),
       ),
@@ -57,15 +43,15 @@ class _BettingStrategyListPageState extends State<BettingStrategyListPage> {
       children: [
         BlocBuilder<BettingStrategyListBloc, BettingStrategyListState>(
             builder: (BuildContext context, BettingStrategyListState state) {
-          if (state is Error) {
-            return MessageDisplay(message: state.message);
-          }
-          if (state is Loaded) {
-            List<BettingStrategyCard> albums = state.bettingStrategyCardList;
-            return _list(albums);
-          }
-          return LoadingCustom();
-        }),
+              if (state is Error) {
+                return MessageDisplay(message: state.message);
+              }
+              if (state is Loaded) {
+                List<BettingStrategyCard> albums = state.bettingStrategyCardList;
+                return _list(albums);
+              }
+              return LoadingCustom();
+            }),
       ],
     );
   }
@@ -86,14 +72,14 @@ class _BettingStrategyListPageState extends State<BettingStrategyListPage> {
                   PageRouteBuilder(
                     transitionDuration: const Duration(milliseconds: 500),
                     reverseTransitionDuration:
-                        const Duration(milliseconds: 500),
+                    const Duration(milliseconds: 500),
                     pageBuilder: (context, animation, secondaryAnimation) =>
                         FadeTransition(
-                      opacity: animation,
-                      child: DetailsPage(
-                        strategy: albums[index],
-                      ),
-                    ),
+                          opacity: animation,
+                          child: DetailsPage(
+                            strategy: albums[index],
+                          ),
+                        ),
                   ),
                 );
               },
@@ -129,20 +115,6 @@ class _BettingStrategyListPageState extends State<BettingStrategyListPage> {
                         ],
                       ),
                     ),
-                    Flexible(
-                      child: IconButton(
-                        onPressed: () {
-                          context.read<BettingStrategyListBloc>().add(
-                              AddBettingStrategyAsFavourite(
-                                  albums[index].id.toString()));
-                         setState(() {
-                           favourite = true;
-                         });
-                        },
-                        icon: Icon((favourite == true) ? Icons.favorite : Icons.favorite_border),
-                        color: Colors.red,
-                      ),
-                    )
                   ],
                 ),
               ),
