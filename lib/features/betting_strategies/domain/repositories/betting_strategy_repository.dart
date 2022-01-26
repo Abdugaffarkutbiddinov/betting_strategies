@@ -8,7 +8,7 @@ abstract class BettingStrategyRepository {
 
   // Future<Either<Failure, BettingStrategyCard>> getBettingCardDetails(int id);
 
-  Future<Either<Failure, void>> addToFavourites(int id);
+  Future<void> addToFavourites(int id);
 
   Future<Either<Failure, void>> removeFromFavourites(int id);
 

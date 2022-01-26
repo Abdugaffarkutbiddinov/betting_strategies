@@ -30,68 +30,71 @@ class _DetailsPageFavouriteState extends State<DetailsPageFavourite> {
               onPressed: () {
                 context
                     .read<BettingStrategyListBloc>()
-                    .add(AddBettingStrategyAsFavourite(widget.strategy.id.toString()));
+                    .add(RemoveBettingStrategyFromFavourite(widget.strategy.id.toString()));
                 setState(() {
                   _cartTag = '_carTag';
                 });
                 Navigator.pop(context);
               },
-              text: 'Remove from Favourites', backgroundColor: Colors.red,
+              text: 'Remove from Favourites', backgroundColor: Colors.red, textColor: Colors.white,
             ),
           ),
         ),
       ),
-      backgroundColor: Colors.white,
+      backgroundColor: CustomColors.backgroundColor,
       appBar: buildAppBar(),
-      body: Column(
-        children: [
-          AspectRatio(
-            aspectRatio: 1.37,
-            child: Stack(
-              clipBehavior: Clip.none,
-              alignment: Alignment.center,
-              children: [
-                Container(
-                  width: double.infinity,
-                  color: Color(0xFFF8F8F8),
-                  child: Hero(
-                    tag: widget.strategy.name + _cartTag,
-                    child: Image(
-                      image: NetworkImage(widget.strategy.image),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            AspectRatio(
+              aspectRatio: 1.37,
+              child: Stack(
+                clipBehavior: Clip.none,
+                alignment: Alignment.center,
+                children: [
+                  Container(
+                    width: double.infinity,
+                    color: Color(0xFFF8F8F8),
+                    child: Hero(
+                      tag: widget.strategy.name + _cartTag,
+                      child: Image(
+                        image: NetworkImage(widget.strategy.image),
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          SizedBox(height: defaultPadding * 1.5),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Text(
-                    widget.strategy.name,
-                    style: Theme.of(context)
-                        .textTheme
-                        .headline6!
-                        .copyWith(fontWeight: FontWeight.bold),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(defaultPadding),
-            child: Text(
-              widget.strategy.text,
-              style: TextStyle(
-                color: Color(0xFFBDBDBD),
-                height: 1.8,
+                ],
               ),
             ),
-          ),
-        ],
+            SizedBox(height: defaultPadding * 1.5),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: defaultPadding),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Text(
+                      widget.strategy.name,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline6!
+                          .copyWith(fontWeight: FontWeight.bold).copyWith(color: CustomColors.primaryTextColor),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(defaultPadding),
+              child: Text(
+                widget.strategy.text,
+                style: TextStyle(
+                  fontSize: 15.0,
+                  color: Colors.white,
+                  height: 1.8,
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -99,14 +102,14 @@ class _DetailsPageFavouriteState extends State<DetailsPageFavourite> {
   AppBar buildAppBar() {
     return AppBar(
       leading: BackButton(
-        color: Colors.black,
+        color: CustomColors.appBarColor,
       ),
-      backgroundColor: Color(0xFFF8F8F8),
+      backgroundColor: CustomColors.appBarColor,
       elevation: 0,
       centerTitle: true,
       title: Text(
         "Strategies",
-        style: TextStyle(color: Colors.black),
+        style: TextStyle(color: CustomColors.primaryTextColor),
       ),
     );
   }

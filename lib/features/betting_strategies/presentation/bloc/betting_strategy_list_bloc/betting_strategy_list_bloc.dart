@@ -4,7 +4,6 @@ import 'package:betting_starategies/core/error/failures.dart';
 import 'package:betting_starategies/core/usecase/usecase.dart';
 import 'package:betting_starategies/core/util/input_converter.dart';
 import 'package:betting_starategies/features/betting_strategies/domain/entities/betting_strategy_card.dart';
-import 'package:betting_starategies/features/betting_strategies/domain/repositories/betting_strategy_repository.dart';
 import 'package:betting_starategies/features/betting_strategies/domain/usecases/add_to_favourites.dart'
     as add;
 import 'package:betting_starategies/features/betting_strategies/domain/usecases/add_to_favourites.dart';
@@ -58,9 +57,9 @@ class BettingStrategyListBloc
     Emitter<BettingStrategyListState> emit,
   ) async {
     emit(Loading());
-    final failureOrBettingStrategyList =
+    final failureOrBettingStrategyListFavorites =
         await getBettingStrategyFavourites(NoParams());
-    emit(_eitherLoadedOrErrorState(failureOrBettingStrategyList));
+    emit(_eitherLoadedFavouritesOrErrorState(failureOrBettingStrategyListFavorites));
   }
 
   BettingStrategyListState _eitherLoadedOrErrorState(
@@ -70,6 +69,14 @@ class BettingStrategyListBloc
         (failure) => Error(message: _mapFailureToMessage(failure)),
         (bettingStrategyCardList) =>
             Loaded(bettingStrategyCardList: bettingStrategyCardList));
+  }
+  BettingStrategyListState _eitherLoadedFavouritesOrErrorState(
+      Either<Failure, List<BettingStrategyCard>>
+      failureOrBettingStrategyCardList) {
+    return failureOrBettingStrategyCardList.fold(
+            (failure) => Error(message: _mapFailureToMessage(failure)),
+            (bettingStrategyCardList) =>
+            LoadedFavourites(bettingStrategyCardListFavourites: bettingStrategyCardList));
   }
 
   String _mapFailureToMessage(Failure failure) {
@@ -87,7 +94,10 @@ class BettingStrategyListBloc
   ) async {
     final inputEither = inputConverter.stringToUnsignedInteger(event.idString);
     inputEither.fold((failure) => Error(message: _mapFailureToMessage(failure)),
-        (id) async => await addToFavourites(add.Params(id: id)));
+        (id) async {
+      print(id);
+      return await addToFavourites(add.Params(id: id));
+    });
   }
 
   Future<void> _onRemoveFromFavourite(

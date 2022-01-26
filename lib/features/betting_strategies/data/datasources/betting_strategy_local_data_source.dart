@@ -22,10 +22,10 @@ class BettingStrategyLocalDataSourceImpl
   BettingStrategyLocalDataSourceImpl({required this.sharedPreferences});
 
   @override
-  Future<void> addToFavourites(BettingStrategyCardModel favourite) {
+  Future<void> addToFavourites(BettingStrategyCardModel favourite) async {
     favourites.add(favourite);
     sharedPreferences.remove(FAVOURITE_LIST);
-    return sharedPreferences.setString(
+    sharedPreferences.setString(
         FAVOURITE_LIST, json.encode(bettingStrategyCardListToJson(favourites)));
   }
 

@@ -2,11 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddButtonDetails extends StatelessWidget {
-  AddButtonDetails({required this.text, required this.onPressed, required this.backgroundColor});
+  AddButtonDetails({required this.text, required this.onPressed, required this.backgroundColor, required this.textColor});
 
   final String text;
   final Function() onPressed;
   final Color backgroundColor;
+  final Color textColor;
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
@@ -28,7 +29,7 @@ class AddButtonDetails extends StatelessWidget {
           ),
         ),
         style: ButtonStyle(
-            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+            foregroundColor: MaterialStateProperty.all<Color>(textColor),
             backgroundColor: MaterialStateProperty.all<Color>(backgroundColor),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(

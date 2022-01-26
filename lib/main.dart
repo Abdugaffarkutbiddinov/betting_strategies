@@ -9,7 +9,13 @@ import 'injection_container.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await di.init();
-  runApp(MyApp(key: null,));}
+  runApp(BlocProvider(
+    create: (_) => sl<BettingStrategyListBloc>(),
+    child: MyApp(
+      key: null,
+    ),
+  ));
+}
 
 class MyApp extends StatelessWidget {
   const MyApp({required Key? key}) : super(key: key);
@@ -19,11 +25,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: BlocProvider(
-        create: (_) => sl<BettingStrategyListBloc>(),
-        child: BettingStrategyListPage(),
-      ),
+      home: BettingStrategyListPage(),
     );
   }
 }
-

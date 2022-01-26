@@ -25,6 +25,14 @@ class Loaded extends BettingStrategyListState {
   // TODO: implement props
   List<Object?> get props => [bettingStrategyCardList];
 }
+class LoadedFavourites extends BettingStrategyListState {
+  final List<BettingStrategyCard> bettingStrategyCardListFavourites;
+  LoadedFavourites({required this.bettingStrategyCardListFavourites});
+
+  @override
+  // TODO: implement props
+  List<Object?> get props => [bettingStrategyCardListFavourites];
+}
 
 class Error extends BettingStrategyListState {
   final String message;

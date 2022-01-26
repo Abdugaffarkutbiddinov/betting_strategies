@@ -11,6 +11,6 @@ class GetBettingStrategyFavourites extends UseCase<List<BettingStrategyCard>, No
 
   @override
   Future<Either<Failure, List<BettingStrategyCard>>> call(NoParams params) async {
-    return await repository.getBettingStrategyCardList();
+    return await repository.getBettingStrategyCardListFavourites();
   }
 }

@@ -11,18 +11,6 @@ abstract class BettingStrategyMockRemoteDataSource {
 
 class BettingStrategyMockRemoteDataSourceImpl
     implements BettingStrategyMockRemoteDataSource {
-  // @override
-  // Future<BettingStrategyCardModel> getBettingStrategyCardDetails(int id){
-  //   final body = json.decode(fixture('betting_strategy.json'));
-  //   List<BettingStrategyCardModel> bettingStrategies = bettingStrategyCardListModelFromJson(body);
-  //   for(final strategy in bettingStrategies) {
-  //     if(id == strategy.id) {
-  //       return Future.value(strategy);
-  //     }
-  //   }
-  //   throw ElementNotFoundException();
-  // }
-
   @override
   Future<List<BettingStrategyCardModel>> getBettingStrategyCardList() async {
     List<BettingStrategyCardModel> bettingStrategies =

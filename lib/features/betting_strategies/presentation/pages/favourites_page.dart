@@ -1,20 +1,17 @@
+import 'package:betting_starategies/constants.dart';
 import 'package:betting_starategies/features/betting_strategies/domain/entities/betting_strategy_card.dart';
 import 'package:betting_starategies/features/betting_strategies/presentation/bloc/betting_strategy_list_bloc/betting_strategy_list_bloc.dart';
-import 'package:betting_starategies/features/betting_strategies/presentation/widgets/list_row.dart';
+import 'package:betting_starategies/features/betting_strategies/presentation/pages/favourites_page_details.dart';
 import 'package:betting_starategies/features/betting_strategies/presentation/widgets/loading_custom.dart';
 import 'package:betting_starategies/features/betting_strategies/presentation/widgets/message_display.dart';
-import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
-import 'betting_strategy_page_details.dart';
 
 class FavouritesPage extends StatefulWidget {
   const FavouritesPage({Key? key}) : super(key: key);
 
   @override
-  State<FavouritesPage> createState() =>
-      _FavouritesPageState();
+  State<FavouritesPage> createState() => _FavouritesPageState();
 }
 
 class _FavouritesPageState extends State<FavouritesPage> {
@@ -25,13 +22,26 @@ class _FavouritesPageState extends State<FavouritesPage> {
   }
 
   _loadAlbums() async {
-    context.read<BettingStrategyListBloc>().add(GetBettingStrategyForFavourites());
+    context
+        .read<BettingStrategyListBloc>()
+        .add(GetBettingStrategyForFavourites());
   }
-
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: CustomColors.backgroundColor,
+      appBar: AppBar(
+        backgroundColor: CustomColors.appBarColor,
+        title: Text(
+          'Favourite Strategies',
+          style: TextStyle(color: CustomColors.primaryTextColor),
+        ),
+        leading: BackButton(
+          color: CustomColors.primaryTextColor,
+        ),
+        centerTitle: true,
+      ),
       body: Container(
         child: _body(),
       ),
@@ -43,15 +53,16 @@ class _FavouritesPageState extends State<FavouritesPage> {
       children: [
         BlocBuilder<BettingStrategyListBloc, BettingStrategyListState>(
             builder: (BuildContext context, BettingStrategyListState state) {
-              if (state is Error) {
-                return MessageDisplay(message: state.message);
-              }
-              if (state is Loaded) {
-                List<BettingStrategyCard> albums = state.bettingStrategyCardList;
-                return _list(albums);
-              }
-              return LoadingCustom();
-            }),
+          if (state is Error) {
+            return MessageDisplay(message: state.message);
+          }
+          if (state is LoadedFavourites) {
+            List<BettingStrategyCard> albums =
+                state.bettingStrategyCardListFavourites;
+            return _list(albums);
+          }
+          return LoadingCustom();
+        }),
       ],
     );
   }
@@ -72,18 +83,19 @@ class _FavouritesPageState extends State<FavouritesPage> {
                   PageRouteBuilder(
                     transitionDuration: const Duration(milliseconds: 500),
                     reverseTransitionDuration:
-                    const Duration(milliseconds: 500),
+                        const Duration(milliseconds: 500),
                     pageBuilder: (context, animation, secondaryAnimation) =>
                         FadeTransition(
-                          opacity: animation,
-                          child: DetailsPage(
-                            strategy: albums[index],
-                          ),
-                        ),
+                      opacity: animation,
+                      child: DetailsPageFavourite(
+                        strategy: albums[index],
+                      ),
+                    ),
                   ),
                 );
               },
               child: Card(
+                color: CustomColors.boxColor,
                 child: Row(
                   children: [
                     Container(
@@ -101,8 +113,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
                           Text(
                             albums[index].name,
                             style: TextStyle(
-                                fontSize: 25.0,
-                                color: Colors.grey,
+                                fontSize: 15.0,
+                                color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),
                           SizedBox(
@@ -110,11 +122,25 @@ class _FavouritesPageState extends State<FavouritesPage> {
                           ),
                           Container(
                             width: width,
-                            child: Text(albums[index].text),
+                            child: Text("tap to view",style: TextStyle(color: CustomColors.primaryTextColor),),
                           )
                         ],
                       ),
                     ),
+
+                    Flexible(
+                      child: IconButton(
+                        onPressed: () {
+                          context
+                              .read<BettingStrategyListBloc>()
+                              .add(RemoveBettingStrategyFromFavourite(albums[index].id.toString()));
+                          setState(() {
+                            // albums.removeAt(albums[index].id);
+                          });
+                        },
+                        icon: Icon(Icons.delete, color: CustomColors.primaryTextColor,),
+                      ),
+                    )
                   ],
                 ),
               ),

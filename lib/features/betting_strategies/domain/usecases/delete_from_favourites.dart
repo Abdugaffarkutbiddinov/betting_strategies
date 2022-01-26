@@ -9,9 +9,9 @@ class DeleteFromFavourites extends UseCase<void,Params> {
   BettingStrategyRepository repository;
   DeleteFromFavourites(this.repository);
   @override
-  Future<Either<Failure, void>> call(Params params) {
+  Future<Either<Failure, void>> call(Params params) async{
     // TODO: implement call
-    throw repository.removeFromFavourites(params.id);
+    return await repository.removeFromFavourites(params.id);
   }
 
 }

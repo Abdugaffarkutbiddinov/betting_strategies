@@ -1,3 +1,4 @@
+import 'package:betting_starategies/core/error/exception.dart';
 import 'package:betting_starategies/core/error/failures.dart';
 import 'package:betting_starategies/features/betting_strategies/data/datasources/betting_strategy_local_data_source.dart';
 import 'package:betting_starategies/features/betting_strategies/data/datasources/betting_strategy_mock_remote_data_source.dart';
@@ -12,12 +13,6 @@ class BettingStrategyRepositoryImpl implements BettingStrategyRepository {
   BettingStrategyRepositoryImpl(
       {required this.mockRemoteDataSource, required this.localDataSource});
 
-  // @override
-  // Future<Either<Failure, BettingStrategyCard>> getBettingCardDetails(int id) async{
-  //   final mockRemoteBettingStrategyDetails = await mockRemoteDataSource.getBettingStrategyCardDetails(id);
-  //   return Right(mockRemoteBettingStrategyDetails);
-  // }
-
   @override
   Future<Either<Failure, List<BettingStrategyCard>>> getBettingStrategyCardList() async{
     final mockRemoteBettingStrategyList = await mockRemoteDataSource.getBettingStrategyCardList();
@@ -25,10 +20,11 @@ class BettingStrategyRepositoryImpl implements BettingStrategyRepository {
   }
 
   @override
-  Future<Either<Failure, void>> addToFavourites(int id) async{
-    final bettingStrategyCardList = await mockRemoteDataSource.getBettingStrategyCardList();
-    return Right(localDataSource.addToFavourites(bettingStrategyCardList.elementAt(id - 1)));
-
+  Future <void> addToFavourites(int id) async {
+      final bettingStrategyCardList = await mockRemoteDataSource
+          .getBettingStrategyCardList();
+      localDataSource.addToFavourites(
+          bettingStrategyCardList.elementAt(id - 1));
   }
 
   @override
